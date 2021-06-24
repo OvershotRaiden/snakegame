@@ -3,38 +3,49 @@ from pygame.constants import KEYDOWN, K_DOWN, K_LEFT, K_RIGHT, K_UP
 from pygame.locals import *
 
 class Snake:
-    def __init__(self):
+    def __init__(self, parent_screen):
         self.block = pygame.image.load("resources/block.jpg").convert()
         self.x = 100
         self.y = 100
  
     def draw(self):
-        surface.blit(block,(block_x,block_y))
+        self.surface.fill((110, 110, 5))
+        self.parent_screen.blit(self.block,(self.x,self.y))
+        pygame.display.flip()
+
+    def move_left(self):
+        self.x -= 10
+        self.draw() 
+
+    def move_right(self):
+        self.x += 10
+        self.draw() 
+
+    def move_up(self):
+        self.y -= 10
+        self.draw() 
+
+    def move_down(self):
+        self.y += 10
+        self.draw() 
         
 class Game:
-    def__init__(self):
-        pygame.init()
-        self.surface = pygame.display.set_mode((500,500))
-        self.surface.fill((255,255,255))
-
+    def__init__(self)
+    pygame.init()
+    self.surface = pygame.display.set_mode((500,500))
+    self.surface.fill((255,255,255))
+    self.snake = snake(self.surface)
+    self.snake.draw()
 
 def run(self):
     
     pass
 
-def draw_block():
-    surface.fill((110, 110, 5))
-    surface.blit(block, (block_x, block_y))
-    pygame.display.flip()
 
 if __name__ == "__main__":
     game = Game()
     game.run()
     
-    surface.blit(block,(block_x,block_y))
-
-    pygame.display.flip( )
-
     running = True
 
     while running:
@@ -44,17 +55,17 @@ if __name__ == "__main__":
                     running = False
                 
                 if event.key == K_UP:
-                    block_y -= 10
-                    draw_block()
+                   self.snake.move_left()
+
                 if event.key == K_DOWN:
-                    block_y += 10
-                    draw_block()
+                    self.snake.move_down()
+
                 if event.key == K_LEFT:
-                    block_x -= 10
-                    draw_block()
+                    self.snake.move_left()
+    
                 if event.key == K_RIGHT:
-                    block_x += 10
-                    draw_block()
+                   self.snake.move_right()
+
 
 
             elif event.type == QUIT:
