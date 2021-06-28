@@ -1,4 +1,4 @@
-from typing import Sized
+
 import pygame
 from pygame.locals import *
 import time
@@ -81,7 +81,7 @@ class Game:
     def __init__(self):
         pygame.init()
         self.surface = pygame.display.set_mode((1000, 800))
-        self.snake = Snake(self.surface, 2)
+        self.snake = Snake(self.surface, 1)
         self.snake.draw()
         self.apple = Apple(self.surface)
         self.apple.draw()
@@ -95,10 +95,17 @@ class Game:
     def play(self):
         self.snake.walk()
         self.apple.draw()
+        self.display_score()
+        pygame.display.flip()
 
         if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
             self.snake.increase_length()
             self.apple.move()
+
+    def display_score(self):
+        font = pygame.font.SysFont('arial',30)
+        score = font.render(f"score: {self.snake.length}", True, (255, 255, 255))
+        self.surface.blit(score, (850,10))
 
     def run(self):
         running = True
