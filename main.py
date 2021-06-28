@@ -1,3 +1,4 @@
+from typing import Sized
 import pygame
 from pygame.locals import *
 import time
@@ -80,10 +81,19 @@ class Game:
         self.apple = Apple(self.surface)
         self.apple.draw()
 
+    def is_collision(self, x1, y1, x2, y2):
+        if x1 >= x2 and x1 <= x2 + SIZE:
+            if y1 >= y2 and y1 <= y2 + SIZE:
+                return True
+
 
     def play(self):
         self.snake.walk()
         self.apple.draw()
+
+        if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
+            print('collision occurred')
+
 
     def run(self):
         running = True
